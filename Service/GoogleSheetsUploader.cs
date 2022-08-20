@@ -18,11 +18,11 @@ namespace QRCodeTracker.Service
 
 		private ILogger<GoogleSheetsUploader> Logger { get; init; }
 
-		private static string ApplicationName = "QR Code Checkin";
+		private const string ApplicationName = "QR Code Checkin";
 
-		public GoogleSheetsUploader(ServiceAccountCredential credentials, IOptions<GoogleSheetsUploaderOptions> options, ILogger<GoogleSheetsUploader> logger)
+		public GoogleSheetsUploader(GoogleSheetCredentialLoader credentialLoader, IOptions<GoogleSheetsUploaderOptions> options, ILogger<GoogleSheetsUploader> logger)
 		{
-			Credentials = credentials;
+			Credentials = credentialLoader.LoadServiceCredentials();
 			Options = options.Value;
 			Logger = logger;
 		}
