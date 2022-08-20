@@ -9,13 +9,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton(typeof(GoogleSheetCredentialLoader));
 builder.Services.AddSingleton(typeof(GoogleSheetsUploader));
 
-builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
-{
-	config.AddJsonFile("appsettings-prod.json",
-					   optional: true,
-					   reloadOnChange: true);
-});
-
 builder.Services.Configure<GoogleSheetsUploaderOptions>(builder.Configuration.GetSection(nameof(GoogleSheetsUploaderOptions)));
 
 var app = builder.Build();

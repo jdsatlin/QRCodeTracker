@@ -5,7 +5,7 @@ For example, if you hosted this site at https://www.myqrcodecheckinsite.com you 
 the https://www.myqrcodecheckinsite.com?location=baseurllocation 
 or the https://www.myqrcodecheckinsite.com/QrCode/Checkin?location=longerurllocation addresses.
 
-The configuration required for this app is a secrets.json file deployed with the app (see:https://developers.google.com/workspace/guides/create-project and https://developers.google.com/workspace/guides/create-credentials#desktop-app) as well as configuration values for where to upload within Google Sheets set either in a package up appsettings-prod.json or via environment variables.
+The configuration required for this app is a secrets.json file deployed with the app (see:https://developers.google.com/workspace/guides/create-project and https://developers.google.com/workspace/guides/create-credentials#desktop-app) as well as configuration values for where to upload within Google Sheets set either in a package up appsettings.Production.json or via environment variables.
 
 Example appsettings-prod.json:
 ```
