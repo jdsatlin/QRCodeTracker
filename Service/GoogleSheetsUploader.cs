@@ -82,6 +82,12 @@ namespace QRCodeTracker.Service
 			};
 		}
 
+		/**
+		 * <summary>
+		 * For the underlying format Google Sheets uses what they call SERIAL_NUMBER format and .NET calls OLE Automation date.
+		 * </summary>
+		 * <see cref="https://www.ablebits.com/office-addins-blog/google-sheets-change-date-format/"/>
+		 */
 		private static CellData ConvertDateToDateTimeCell(DateTime datetime)
 		{
 			return new CellData
