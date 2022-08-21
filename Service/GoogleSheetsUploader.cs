@@ -20,7 +20,7 @@ namespace QRCodeTracker.Service
 
 		private const string ApplicationName = "QR Code Checkin";
 
-		public GoogleSheetsUploader(GoogleSheetCredentialLoader credentialLoader, IOptions<GoogleSheetsUploaderOptions> options, ILogger<GoogleSheetsUploader> logger)
+		public GoogleSheetsUploader(GoogleSheetsCredentialLoader credentialLoader, IOptions<GoogleSheetsUploaderOptions> options, ILogger<GoogleSheetsUploader> logger)
 		{
 			Credentials = credentialLoader.LoadServiceCredentials();
 			Options = options.Value;

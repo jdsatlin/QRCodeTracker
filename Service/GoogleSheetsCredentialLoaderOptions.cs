@@ -1,6 +1,6 @@
 ﻿namespace QRCodeTracker.Service
 {
-    public record GoogleSheetCredentialLoaderOptions
+    public record GoogleSheetsCredentialLoaderOptions
     {
         public string PrivateKey { get; init; } = string.Empty;
 

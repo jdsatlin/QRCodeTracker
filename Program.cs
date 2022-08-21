@@ -1,4 +1,3 @@
-using Google.Apis.Auth.OAuth2;
 using QRCodeTracker.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton(typeof(GoogleSheetCredentialLoader));
+builder.Services.AddSingleton(typeof(GoogleSheetsCredentialLoader));
 builder.Services.AddSingleton(typeof(GoogleSheetsUploader));
 
 builder.Services.Configure<GoogleSheetsUploaderOptions>(builder.Configuration.GetSection(nameof(GoogleSheetsUploaderOptions)));
