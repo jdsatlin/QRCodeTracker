@@ -38,7 +38,7 @@ namespace QRCodeTracker.Service
 			AppendCellsRequest addCellsRequest = new AppendCellsRequest
 			{
 				SheetId = Options.SheetId,
-				Fields = Options.CellRange,
+				Fields = "*",
 				Rows = new List<RowData>
 				{
 					ConvertCheckinToRow(checkin)

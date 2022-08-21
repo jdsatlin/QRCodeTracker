@@ -16,6 +16,7 @@ You must
 2. Activate the Google Sheets API on [the API Library page](https://console.cloud.google.com/apis/library?project=_). [Further documentation here](https://cloud.google.com/apis/docs/getting-started).
 3. Create a service account for the project
 4. Create keys for your service account
+5. Share access to the spreadsheet with the service account, using the "Share" button in the Google Sheets UI, and share it with the service account email address as an editor.
 
 ## Configuring the application:
  
@@ -28,8 +29,7 @@ Example appsettings.Production.json:
 {
 	"GoogleSheetsUploaderOptions" : {
 		"SpreadsheetId": "someSpreadSheetIdHere",
-		"SheetId": 1234,
-		"CellRange": "1:2"
+		"SheetId": 1234
 	},
 	"GoogleSheetsCredentialLoader": {
 		"PrivateKey": "privateKeyFromGoogleServiceAccountHere",
@@ -46,7 +46,6 @@ CellRange is the cell range to append into, it will look in the range for the fi
 You can also fill these options out using environment variables with the keys of:
 `GoogleSheetsUploaderOptions.SpreadsheetId=someSpreadSheetIdHere`
 `GoogleSheetsUploaderOptions.SheetId=1234`
-`GoogleSheetsUploaderOptions.CellRange=1:2`
 `GoogleSheetsCredentialLoader.ServiceEmail=emailGeneratedByGoogleServiceAccount@domain.tld`
 `GoogleSheetsCredentialLoader.PrivateKey=privateKeyFromGoogleServiceAccountHere`
 `GoogleSheetsCredentialLoader.CertificateLocation=/path/to/cert`
