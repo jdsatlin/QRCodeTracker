@@ -9,9 +9,6 @@ namespace QRCodeTracker.Models
 		public DateTime Time { get; init; } = DateTime.UtcNow;
 
 		[DisplayFormat(DataFormatString = "{0:f}")]
-		public DateTime PacificTime
-		{
-			get => TimeZoneInfo.ConvertTimeFromUtc(Time, TimeZoneInfo.FindSystemTimeZoneById(PacificTimeZone)); 
-		}
+		public DateTime PacificTime => TimeZoneInfo.ConvertTimeFromUtc(Time, TimeZoneInfo.FindSystemTimeZoneById(PacificTimeZone));
 	}
 }

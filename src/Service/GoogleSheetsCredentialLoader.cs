@@ -5,8 +5,8 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace QRCodeTracker.Service
 {
-    public class GoogleSheetsCredentialLoader
-    {
+    public class GoogleSheetsCredentialLoader : IGoogleSheetsCredentialLoader
+	{
 		private GoogleSheetsCredentialLoaderOptions Options { get; init; }
 
 		private ILogger<GoogleSheetsCredentialLoader> Logger { get; init; }

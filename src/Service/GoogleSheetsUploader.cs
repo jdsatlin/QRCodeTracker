@@ -1,6 +1,4 @@
-﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Services;
-using Google.Apis.Sheets.v4;
+﻿using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Microsoft.Extensions.Options;
 
@@ -8,34 +6,26 @@ using QRCodeTracker.Models;
 
 namespace QRCodeTracker.Service
 {
-	public class GoogleSheetsUploader
+	public class GoogleSheetsUploader : IGoogleSheetsUploader
 	{
 		private const string DateTimeFormatSpecifier = "DATE_TIME";
 
-		private ServiceAccountCredential Credentials { get; init; }
+		private ISheetsServiceFactory SheetsServiceFactory { get; init; }
 
 		private GoogleSheetsUploaderOptions Options { get; init; }
 
 		private ILogger<GoogleSheetsUploader> Logger { get; init; }
 
-		private const string ApplicationName = "QR Code Checkin";
-
-		public GoogleSheetsUploader(GoogleSheetsCredentialLoader credentialLoader, IOptions<GoogleSheetsUploaderOptions> options, ILogger<GoogleSheetsUploader> logger)
+		public GoogleSheetsUploader(IOptions<GoogleSheetsUploaderOptions> options, ISheetsServiceFactory sheetsServiceFactory, ILogger<GoogleSheetsUploader> logger)
 		{
-			Credentials = credentialLoader.LoadServiceCredentials();
+			SheetsServiceFactory = sheetsServiceFactory;
 			Options = options.Value;
 			Logger = logger;
 		}
 
 		public void AddDataToSheet(Checkin checkin)
 		{
-			var service = new SheetsService(new BaseClientService.Initializer
-			{
-				HttpClientInitializer = Credentials,
-				ApplicationName = ApplicationName
-			});
-
-			AppendCellsRequest addCellsRequest = new AppendCellsRequest
+			var addCellsRequest = new AppendCellsRequest
 			{
 				SheetId = Options.SheetId,
 				Fields = "*",
@@ -59,9 +49,11 @@ namespace QRCodeTracker.Service
 
 			try
 			{
-				var update = service.Spreadsheets.BatchUpdate(batchContainer, Options.SpreadsheetId);
+				SheetsService service = SheetsServiceFactory.CreateSheetsService();
 
-				var result = update.Execute();
+				SpreadsheetsResource.BatchUpdateRequest? update = service.Spreadsheets.BatchUpdate(batchContainer, Options.SpreadsheetId);
+
+				update.Execute();
 			}
 			catch (Exception exception)
 			{
@@ -88,7 +80,7 @@ namespace QRCodeTracker.Service
 		 * </summary>
 		 * <see cref="https://www.ablebits.com/office-addins-blog/google-sheets-change-date-format/"/>
 		 */
-		private static CellData ConvertDateToDateTimeCell(DateTime datetime)
+		internal static CellData ConvertDateToDateTimeCell(DateTime datetime)
 		{
 			return new CellData
 			{
@@ -106,7 +98,7 @@ namespace QRCodeTracker.Service
 			};
 		}
 
-		private static CellData CreateStringCell(string value)
+		internal static CellData CreateStringCell(string value)
 		{
 			return new CellData
 			{

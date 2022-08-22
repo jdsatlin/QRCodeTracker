@@ -8,9 +8,9 @@ namespace QRCodeTracker.Controllers
     {
         private ILogger<QrCodeController> Logger { get; init; }
 
-        private GoogleSheetsUploader GoogleSheetsUploader { get; init; }
+        private IGoogleSheetsUploader GoogleSheetsUploader { get; init; }
 
-		public QrCodeController(ILogger<QrCodeController> logger, GoogleSheetsUploader googleSheetsUploader)
+		public QrCodeController(ILogger<QrCodeController> logger, IGoogleSheetsUploader googleSheetsUploader)
 		{
 			Logger = logger;
             GoogleSheetsUploader = googleSheetsUploader;
@@ -24,7 +24,7 @@ namespace QRCodeTracker.Controllers
                 return BadRequest("Invalid location");
             }
 
-			var currentTime = DateTime.UtcNow;
+			DateTime currentTime = DateTime.UtcNow;
 
 			var checkinInfo = new Checkin
             {

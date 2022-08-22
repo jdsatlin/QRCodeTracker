@@ -8,8 +8,9 @@ builder.Services.Configure<GoogleSheetsCredentialLoaderOptions>(builder.Configur
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton(typeof(GoogleSheetsCredentialLoader));
-builder.Services.AddSingleton(typeof(GoogleSheetsUploader));
+builder.Services.AddSingleton<IGoogleSheetsCredentialLoader, GoogleSheetsCredentialLoader>();
+builder.Services.AddSingleton<ISheetsServiceFactory, SheetsServiceFactory>();
+builder.Services.AddSingleton<IGoogleSheetsUploader, GoogleSheetsUploader>();
 
 var app = builder.Build();
 
