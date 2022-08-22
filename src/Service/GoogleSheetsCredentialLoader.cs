@@ -11,6 +11,8 @@ namespace QRCodeTracker.Service
 
 		private ILogger<GoogleSheetsCredentialLoader> Logger { get; init; }
 
+		private static readonly string[] SpreadsheetScopes = { SheetsService.Scope.Spreadsheets };
+
 		public GoogleSheetsCredentialLoader(IOptions<GoogleSheetsCredentialLoaderOptions> options, ILogger<GoogleSheetsCredentialLoader> logger)
 		{
 			Options = options.Value;
@@ -25,18 +27,18 @@ namespace QRCodeTracker.Service
 				return new ServiceAccountCredential(
 					new ServiceAccountCredential.Initializer(Options.ServiceEmail)
 					{
-						Scopes = new[] { SheetsService.Scope.Spreadsheets }
+						Scopes = SpreadsheetScopes
 					}.FromPrivateKey(Options.PrivateKey));
 			}
 			else
 			{
 				Logger.LogInformation("Attempting to retrieve Service Account Credentials via Certificate file");
-				var certificate = new X509Certificate2(Options.CertificateLocation, Options.CertificatePassword, X509KeyStorageFlags.Exportable);
+				var certificate = new X509Certificate2(Options.CertificateLocation, Options.CertificatePassword, X509KeyStorageFlags.DefaultKeySet);
 
 				return new ServiceAccountCredential(
 				new ServiceAccountCredential.Initializer(Options.ServiceEmail)
 				{
-					Scopes = new[] { SheetsService.Scope.Spreadsheets }
+					Scopes = SpreadsheetScopes
 				}.FromCertificate(certificate));
 
 			}
