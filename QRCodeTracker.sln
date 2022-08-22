@@ -5,9 +5,17 @@ VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QRCodeTracker", "src\QRCodeTracker.csproj", "{72BB7AFE-A27C-425A-B625-C0DEC6DF69CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRCodeTrackerTests", "tests\QRCodeTrackerTests\QRCodeTrackerTests.csproj", "{3D256798-3A6A-4E7C-9BED-F34E076E972D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QRCodeTrackerTests", "tests\QRCodeTrackerTests\QRCodeTrackerTests.csproj", "{3D256798-3A6A-4E7C-9BED-F34E076E972D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{85437396-8612-4F18-9E35-E120460C6BDA}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+		.dockerignore = .dockerignore
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Dockerfile = Dockerfile
+		ReadMe.md = ReadMe.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
