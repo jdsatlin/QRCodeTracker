@@ -31,35 +31,39 @@ Example appsettings.Production.json:
 		"SpreadsheetId": "someSpreadSheetIdHere",
 		"SheetId": 1234
 	},
-	"GoogleSheetsCredentialLoader": {
+	"GoogleSheetsCredentialLoaderOptions": {
 		"PrivateKey": "privateKeyFromGoogleServiceAccountHere",
 		"ServiceEmail": "emailGeneratedByGoogleServiceAccount@domain.tld"
 	}
 }
 ```
+
+The following values are required:
+`GoogleSheetsUploaderOptions.SpreadsheetId`
+`GoogleSheetsCredentialLoaderOptions.ServiceEmail`
+
+As well as either of:
+`GoogleSheetsCredentialLoaderOptions.PrivateKey`
+OR BOTH
+`GoogleSheetsCredentialLoaderOptions.CertificateLocation` AND `GoogleSheetsCredentialLoaderOptions.CertificatePassword`
+
 You can find your SpreadsheetId and SheetId for a given spreadsheet using the following patterns:
 SpreasheetId: https://docs.google.com/spreadsheets/d/SpreadsheetId/edit#gid=0
 SheetId: https://docs.google.com/spreadsheets/d/aBC-123_xYz/edit#gid=SheetId
+
+The key for the PrivateKey value can be found in the secrets.json provided when you create a key via Google's dashboard, and will be the full value including the `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----` portions. 
+The certificate for Certificate location is the .p12 certificate that can be generated via Google's dashboard, as well as the key displayed on their site (or your own certificate if you chose to upload one to Google). The value for the location parameter is a complete filepath to the certificate file.   
+
+All remaining values are optional and will default as follows:
+`GoogleSheetsUploaderOptions.SheetId` will default to SheetId 0, which should be the first sheet (tab) of the spreadsheet.
 
 CellRange is the cell range to append into, it will look in the range for the first empty cell. Uses A1 notation from https://developers.google.com/sheets/api/guides/concepts
 
 You can also fill these options out using environment variables with the keys of:
 `GoogleSheetsUploaderOptions.SpreadsheetId=someSpreadSheetIdHere`
 `GoogleSheetsUploaderOptions.SheetId=1234`
-`GoogleSheetsCredentialLoader.ServiceEmail=emailGeneratedByGoogleServiceAccount@domain.tld`
-`GoogleSheetsCredentialLoader.PrivateKey=privateKeyFromGoogleServiceAccountHere`
-`GoogleSheetsCredentialLoader.CertificateLocation=/path/to/cert`
-`GoogleSheetsCredentialLoader.CertificatePassword=passwordForCert`
+`GoogleSheetsCredentialLoaderOptions.ServiceEmail=emailGeneratedByGoogleServiceAccount@domain.tld`
+`GoogleSheetsCredentialLoaderOptions.PrivateKey=privateKeyFromGoogleServiceAccountHere`
+`GoogleSheetsCredentialLoaderOptions.CertificateLocation=/path/to/cert`
+`GoogleSheetsCredentialLoaderOptions.CertificatePassword=passwordForCert`
 
-The following values are required:
-`GoogleSheetsUploaderOptions.SpreadsheetId`
-`GoogleSheetsCredentialLoader.ServiceEmail`
-
-As well as either of:
-`GoogleSheetsCredentialLoader.PrivateKey`
-OR BOTH
-`GoogleSheetsCredentialLoader.CertificateLocation` AND `GoogleSheetsCredentialLoader.CertificatePassword`
-
-All remaining values are optional and will default as follows:
-`GoogleSheetsUploaderOptions.SheetId` will default to SheetId 0, which should be the first sheet (tab) of the spreadsheet.
-`GoogleSheetsUploaderOptions.CellRange` will default to "1:2" which should be the first two columns of the spreadsheet
