@@ -7,14 +7,19 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["QRCodeTracker.csproj", "."]
-RUN dotnet restore "./QRCodeTracker.csproj"
+COPY ["QRCodeTracker.sln", "./"]
+COPY ["src/QRCodeTracker.csproj", "./src/"]
+COPY ["tests/QRCodeTrackerTests.csproj", "./tests/"]
+RUN dotnet restore
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "QRCodeTracker.csproj" -c Release -o /app/build
+RUN dotnet build -c Release -o /app/build
+
+from build AS test
+RUN dotnet test
 
 FROM build AS publish
-RUN dotnet publish "QRCodeTracker.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./src/QRCodeTracker.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
