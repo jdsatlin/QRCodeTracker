@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Connections;
+using Microsoft.AspNetCore.Mvc;
 using QRCodeTracker.Models;
 using QRCodeTracker.Service;
 
@@ -34,9 +35,17 @@ namespace QRCodeTracker.Controllers
             
             Logger.Log(LogLevel.Information, "Check in at {location}, time is {currentTime}", location, currentTime);
 
-            GoogleSheetsUploader.AddDataToSheet(checkinInfo);
-
-			return View(checkinInfo);
+            try
+            {
+	            GoogleSheetsUploader.AddDataToSheet(checkinInfo);
+	            
+	            return View(checkinInfo);
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError("Something went wrong attempting to save to the spreadsheet", exception);
+                return Problem(title: "Something went wrong", detail: "An error was encountered processing this request.", statusCode: 500);
+            }
         }
     }
 }

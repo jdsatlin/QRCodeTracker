@@ -3,8 +3,6 @@ using Google.Apis.Sheets.v4.Data;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
-using Moq.Language.Flow;
-using NUnit.Framework.Internal;
 using QRCodeTracker.Models;
 using QRCodeTracker.Service;
 
